@@ -8,6 +8,10 @@ U `develop` branch ide, pre no u `main`.
 svaka grupica, u svoj branch .. 
 
 
+##### Ko je u koju grupicu: 
+group1 - igor lerinc
+group2 - 
+group3 - 
 
 
 
