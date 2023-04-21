@@ -89,6 +89,18 @@ Evo [vidi](https://imgur.com/shMknul.png) i to izgleda [readable](https://imgur.
 
 
 
+## Issues
+Ovo je jako vazno. 
+U [issues](https://github.com/Linuxiness/X-Galactic-Blitz/issues), svaka grupica ima svoj broj za labels (labels za issues koristi) (grupica 1 je broj 1 , grupica 2 je broj 2, grupica 3 je broj 3 ),
+i tu treba u okviru vaše grupice, da stavljate sve u vezi vašeg dijela posla. bugs, TODO, želje, features, itd.. 
+
+Labels bez broja, vazi za cijeli program, van vašeg dijela posla, koji treba ili zajednički effort, ili neko drugi u okviru naše grupe, da odradi.. (tu mozes ubaciti feature improvements i slicno.. da to bude dokumentovano ... )
+
+
+## Milestones
+Takođe, ako oćeš, koristi [Milestones](https://github.com/Linuxiness/X-Galactic-Blitz/milestones), da lakse organizujes issues na kojima radis trenutno. 
+I time je to kao tracker, kolko je odrađeno.. i kada i šta.. 
+
 ---------------------------------
 
 References: 
