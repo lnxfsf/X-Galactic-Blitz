@@ -23,6 +23,7 @@ Ovo su guidelines, kojeg se drzimo, da bi bilo consistent i čitljivo, pridržav
 Samo ja (igor) merge-ujem u `main` kao finalni working kod (kada se neki feature do kraja doradi.. pa moze safely da se ubaci.. )
 
 prvo proveri da li radi u vas branch kako treba ta funkcionalnost;
+koristite vaš `develop-group#` u koji testirate sve funkcionalnosti da radi kako treba (u koji i VI rešite merge conflicts ako ima neki), i onda mozete poslati u `develop` branch, u slucaju da radi sve (ako sve radi, bice odma i approved.. samo da nema merge conflict koji ja moram da rešavam, kada VI treba to unapred da rešite.. u vaš `develop-group#` ...  )
 ako radi, šalješ `develop` branch, za koji takođe need approval for pull request by me :) ( u `develop` branch, se jos jednom proveri, da sve funkcionalnosti (na kojima radiš) rade kako treba i ako rade, ubaci se u `main` ako je funkcionalnost dorađena do kraja, ako nije dorađena do kraja, ostaje u `develop` dok se ne doradi do kraja.. )
 
 
