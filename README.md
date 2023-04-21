@@ -10,7 +10,9 @@ svaka grupica, u svoj branch ..
 
 ##### Ko je u koju grupicu: 
 group1 - igor lerinc
+
 group2 - 
+
 group3 - 
 
 
