@@ -61,6 +61,7 @@ Having your files backed up on a remote server is a nice side effect of having a
 ### Use Branches
 Branching is one of Git‘s most powerful features - and this is not by accident: quick and easy branching was a central requirement from day one. Branches are the perfect tool to help you avoid mixing up different lines of development. You should use branches extensively in your development workflows: for new features, bug fixes, ideas...
 
+I kada merge-ujete, brisite branches koji vam ne trebaju.. kada se merge-uje. Pise tamo odma, kada se merge-uje u pull request... da se obrise taj branch.. naravno, nemoj obrisati, branch, na koji radis.. dio za tvoju grupicu.. 
 
 
 ## Formatting Rules
