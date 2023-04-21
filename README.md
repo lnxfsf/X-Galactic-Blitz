@@ -108,13 +108,4 @@ References:
 
 
 
----------------------------------
 
-hello
-
-stoner
-
-
-here it is
-
-lorn, future garage
