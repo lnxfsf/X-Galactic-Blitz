@@ -7,9 +7,6 @@ import math
 #background music
 from pygame import mixer
 
-# scroll background, file... 
-# treba fix, da, bi mogao da draw-uje.... jer nece druge elemente da prikaze..
-from scrollable_background import scroll_bg
 
 
 # pygame init
