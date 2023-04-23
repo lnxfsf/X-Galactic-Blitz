@@ -1,6 +1,8 @@
 import pygame, sys, os
 from pygame.locals import *
 import math
+
+# scroll background, file... 
 from scrollable_background import scroll_bg
 
 
@@ -23,33 +25,6 @@ YELLOW_SPACESHIP = pygame.image.load(os.path.join("images", "player.png"))
 
 
 
-#def scroll_bg(WIN):
-#    clock = pygame.time.Clock()
-#    BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT))
-#    scroll = 0
-#    tiles = math.ceil(HEIGHT / BG.get_height()) + 1
-#
-#    while True:
-#        clock.tick(50)
-#
-#        i = 0
-#        while i < tiles:
-#            WIN.blit(BG, (0, scroll + BG.get_height() * i))
-#            i += 1
-#
-#        scroll -= 35
-#
-#        if abs(scroll) > BG.get_height():
-#            scroll = 0
-#
-#        for event in pygame.event.get():
-#            if event.type == pygame.QUIT:
-#                pygame.quit()
-#                sys.exit()
-#
-#        pygame.display.update()
-#
-
 # NOVO-------------------- 
 
 
@@ -60,7 +35,7 @@ while True:
     
 
 
-    # scroll background
+    # scroll background, sa fajla funkciju uzima.. 
     scroll_bg(WIN)
 
 
