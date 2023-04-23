@@ -2,6 +2,8 @@ import pygame, sys, os
 from pygame.locals import *
 import random
 
+#background music
+from pygame import mixer
 
 # scroll background, file... 
 # treba fix, da, bi mogao da draw-uje.... jer nece druge elemente da prikaze..
@@ -143,10 +145,19 @@ def collide(obj1, obj2):
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
 
+def background_music():
 
+    # background music
+    mixer.init()                     # Starting the mixer
+    mixer.music.load(os.path.join("music", "Sadder_Days_Omelas_Snippet_.ogg"))     # Loading the song (molim te ostavi ovu dope singl)
+    mixer.music.set_volume(0.7)      # Setting the volume
+    mixer.music.play()               # Start playing the song
 
 # glavni dio funkcionalnosti
 def main():
+
+
+
 
     # game states
     run = True
