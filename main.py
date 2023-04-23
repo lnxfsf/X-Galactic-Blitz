@@ -1,13 +1,15 @@
 import pygame, sys, os
 from pygame.locals import *
 import random
+import math
+
 
 #background music
 from pygame import mixer
 
 # scroll background, file... 
 # treba fix, da, bi mogao da draw-uje.... jer nece druge elemente da prikaze..
-#from scrollable_background import scroll_bg
+from scrollable_background import scroll_bg
 
 
 # pygame init
@@ -156,6 +158,7 @@ def background_music():
 def main():
 
 
+
     # background music 
     #               UNCOMMENT THIS, WHEN YOU START WORKING ON IT
     # background_music()
@@ -190,10 +193,31 @@ def main():
     clock = pygame.time.Clock()
 
 
-    def redraw_window():
+    # scrollable backgound --------------
 
-        # DRAWING THE BACKGROUND
-        WIN.blit(BG, (0,0))
+    # za scroll, varijabla
+    scroll = 0
+    tiles = math.ceil(HEIGHT / BG.get_height()) + 1
+
+    # --------------
+
+    def redraw_window(WIN, BG, scroll, tiles):
+
+        # DRAWING THE BACKGROUND (static)
+        #WIN.blit(BG, (0,0))
+
+        # scrollable backgound --------------
+        i = 0
+        while i < tiles:
+            WIN.blit(BG, (0, scroll + BG.get_height() * i))
+            i += 1
+
+        scroll -= 35
+
+        if abs(scroll) > BG.get_height():
+            scroll = 0
+        
+        # --------------
 
         # DRAW TEXT
         level_label = main_font.render(f"Level: {level}", 1, (255,255,255))  #level
@@ -214,21 +238,27 @@ def main():
         if lost:
             lost_label = main_font.render("YOU LOST!", 1, (255,255,255)) # da kreira label
             WIN.blit(lost_label, ((WIDTH-lost_label.get_width())//2, (HEIGHT-lost_label.get_height())//2)) # i da ga prikaze na ekranu
-        
+
+
+
         # UPDATING THE DISPLAY
         pygame.display.update()
+
+        # ovo return-uje scroll varijablu za scrollable background
+        return scroll
     
+
 
     # main game loop
     while True: 
         
 
-        # scroll background, sa fajla funkciju uzima..  (ovo nesto nece ove druge stvari da prikaze.. nesto tu treba, prilagoditi)
-        #scroll_bg(WIN)
+        
+
 
         #na osnovu clock, jer clock, ce praviti pauze, da ne bi zbog infinite while loop, PC uzimao resurse previse, tj. da ne bi redraw previse često
         clock.tick(FPS)
-        redraw_window() # UPDATING DISPLAY 
+        scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
 
         
         """

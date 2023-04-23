@@ -25,10 +25,6 @@ def scroll_bg(WIN):
         if abs(scroll) > BG.get_height():
             scroll = 0
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
 
         pygame.display.update()
 
