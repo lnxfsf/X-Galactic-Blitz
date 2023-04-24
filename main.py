@@ -118,6 +118,10 @@ class Enemy(Ship):
         # da li je objekat izabran, kao aktivan
         self.active = False   
         self.word = word
+
+        # bela boja, samo ce biti false, i time je zuta boja
+        self.white = True
+
         # vidi ovo gore docs
         self.ship_img = self.COLOR_MAP[color]  # postavljanje slike za ovaj ship
         self.mask = pygame.mask.from_surface(self.ship_img)
@@ -132,11 +136,15 @@ class Enemy(Ship):
 
 
 
+        # promeni boju , tako sto ugasi white, i onda ce koristiti (fall back on) zutu boju
+        if self.white:
+            color = (255, 255, 255)
+        else:
+            color = (255,255,0)
 
-        white = (255, 255, 255)
         font = pygame.font.Font(None, 24)
 
-        label = font.render(self.word, True, white) 
+        label = font.render(self.word, True, color) 
         label_rect = label.get_rect(centerx=self.ship_img.get_width() // 2, top=self.ship_img.get_height() + 5) 
 
 
@@ -166,6 +174,9 @@ class Enemy(Ship):
 
     def reserve(self):
         self.active = True 
+
+        # i promeni boju , tako sto ugasi white, i onda ce koristiti (fall back on) zutu boju
+        self.white = False
 
 
 """
