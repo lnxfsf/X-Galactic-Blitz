@@ -151,6 +151,9 @@ class Enemy(Ship):
             if len(self.word) > 0:
                 self.word = self.word[1:]
 
+    def get_first_char(self):
+        return self.word[0]
+
     #da li je string empty
     def is_name_empty(self):
             return len(self.word) == 0
@@ -233,9 +236,15 @@ def uklanjanje_karaktera_s_labela(karakter, enemies):
         print(slovo)
         #print(slovo)
         
-        #cak i on prepoznaje. ali samo treba da otkrijem, koja je to tačno, slovo ! da bih mogao da radi kako treba ! 
-       # for enemy in enemies:
-       #     enemy.delete_first_character()
+        #vidi u sve enemies ! 
+        for enemy in enemies:
+            if slovo == enemy.get_first_char():
+
+
+
+            # e ovde koristis referencu, koja bude pogodila bet, da udje  ! samo prvi iz liste da bude, da ako bude dva takva, da bude lazy, i izabere prvi
+                        enemy.delete_first_character()
+
 
 # --------------------
 
