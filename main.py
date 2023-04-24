@@ -151,6 +151,9 @@ class Enemy(Ship):
             if len(self.word) > 0:
                 self.word = self.word[1:]
 
+    #da li je string empty
+    def is_name_empty(self):
+            return len(self.word) == 0
 
 
 """
