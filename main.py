@@ -261,8 +261,9 @@ keymap = {
 rezervisan_objekat = 0
 
 
-def uklanjanje_karaktera_s_labela(karakter, enemies, rezervisan_objekat):
+def uklanjanje_karaktera_s_labela(karakter, enemies):
         slovo = karakter
+        global rezervisan_objekat
 
         print(slovo)
         
@@ -534,7 +535,7 @@ def main():
                 # prepoznaje koji key je pressed, engleska abeceda.. 
                 if event.key in keymap:
                     #pass koji je karakter ubačen.. 
-                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies, rezervisan_objekat)
+                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies)
 
 
         # checking for events ********** 
