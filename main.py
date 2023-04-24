@@ -115,6 +115,8 @@ class Enemy(Ship):
     def __init__(self, x, y, color, word):
         super().__init__(x, y)  # draw position
         
+        # da li je objekat izabran, kao aktivan
+        self.active = False   
         self.word = word
         # vidi ovo gore docs
         self.ship_img = self.COLOR_MAP[color]  # postavljanje slike za ovaj ship
@@ -157,6 +159,13 @@ class Enemy(Ship):
     #da li je string empty
     def is_name_empty(self):
             return len(self.word) == 0
+
+
+    def aktivan(self):
+        return self.active
+
+    def reserve(self):
+        self.active = True 
 
 
 """
@@ -227,23 +236,65 @@ keymap = {
 # --------------------
 
 
+# na pocetku, nijedan objekat nije rezervisan. tj. nije aktivan nijedan objekat. i on trazi koji bi mogao da rezervise, kada nadje, koji odgovara.. , kada nadje, koji odgovara.. 
+rezervisan_objekat = 0
 
-def uklanjanje_karaktera_s_labela(karakter, enemies):
 
-        # posto ga on passuje, on bukvalno ustvari, direktno dobije vrednost karaktera, potpuno je čist  ! okej, sada, samo treba, da namestis, lista, da ucita.. 
+def uklanjanje_karaktera_s_labela(karakter, enemies, rezervisan_objekat):
         slovo = karakter
 
         print(slovo)
-        #print(slovo)
         
+
         #vidi u sve enemies ! 
         for enemy in enemies:
-            if slovo == enemy.get_first_char():
+
+
+                #ustvari, proveri, da li neki objekat, ima assigned, koji je rezervisan, ako nije, onda tek rezervise koji odgovara ! 
+                # ovo je van objekta ! 
+                # ako je ovo true, onda to znaci, da je rezervisan objekat, i da, mozemo se upustiti da proverimo, koji je to objekat
+                if rezervisan_objekat:
+                    #ako je ovo taj koji je izabran i na kome radis, onda , njega, ces da brises karakter.. 
+                    # on ce izlistati kroz ove elemente, i koji objekat bude imao aktivan boolean, to je objekat koji treba da obrises mu karakter , ne brini za ovaj drugi else, zato sto je on ovde izvrsio, znamo da je on assigned
+                    if enemy.aktivan():
+                            enemy.delete_first_character()
+
+                            # i ovde moze da proveri da li je to zadnji, da bi resetovao.. kao i unistio objekat
+                            # moze se obrisati, lista direktno odavde, jer referencom ide sve to..
+                            # ovo je da proveri, treba biti 1, i onda radi ovaj funkcija.. 
+                            if enemy.is_name_empty():
+                                # nema vise ovog objekta
+                                rezervisan_objekat = 0
+                                
+                                # i sada ga sklanja sa liste ! 
+                                enemies.remove(enemy)
 
 
 
-            # e ovde koristis referencu, koja bude pogodila bet, da udje  ! samo prvi iz liste da bude, da ako bude dva takva, da bude lazy, i izabere prvi
-                        enemy.delete_first_character()
+
+                else:
+                    # onda pronadji objekat koji odgovara ka ovome (ne brini, prvi koji naidje, lock-ovace ga.. cak i ako je van ekrana, to moze neko da resi.. kasnije)
+                    if slovo == enemy.get_first_char():
+                            enemy.delete_first_character()
+
+                            # i ovde moze da proveri da li je to zadnji, da bi resetovao.. kao i unistio objekat
+                            # moze se obrisati, lista direktno odavde, jer referencom ide sve to..
+                            # ovo je da proveri, treba biti 1, i onda radi ovaj funkcija.. 
+                            if enemy.is_name_empty():
+                                # nema vise ovog objekta
+                                rezervisan_objekat = 0
+                                # i sada ga sklanja sa liste ! 
+
+                                # i sada ga sklanja sa liste ! 
+                                enemies.remove(enemy)
+
+                            else:
+                                # da podesi aktivan varijablu na true, u tom objektu
+                                enemy.reserve()
+
+                                # e evo ga, kada nadjemo neki.. onda ga lockuje.. 
+                                rezervisan_objekat = 1
+
 
 
 # --------------------
@@ -461,7 +512,7 @@ def main():
                 # prepoznaje koji key je pressed, engleska abeceda.. 
                 if event.key in keymap:
                     #pass koji je karakter ubačen.. 
-                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies)
+                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies, rezervisan_objekat)
 
 
         # checking for events ********** 
