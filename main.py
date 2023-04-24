@@ -121,6 +121,25 @@ class Enemy(Ship):
         self.y += vel   # on se pokrece, tako sto se njegova y pozicija povećava. znaci, sto je veci y pozicija, on ustvari ide ka dole. a sto je manja y pozicija ide ka gore.. to je po pygame pravila.. 
 
 
+    def draw(self, window):
+        super().draw(window)
+
+
+
+
+        white = (255, 255, 255)
+        font = pygame.font.Font(None, 24)
+
+        label = font.render('Enemy ', True, white) 
+        label_rect = label.get_rect(centerx=self.ship_img.get_width() // 2, top=self.ship_img.get_height() + 5) 
+
+
+        x = self.x
+        y = self.y
+
+
+        WIN.blit(label, (x + self.ship_img.get_width() // 2 - label.get_width() // 2, y + self.ship_img.get_height() + 5))
+        WIN.blit(self.ship_img, (x, y))
 
 
 """
@@ -212,7 +231,8 @@ def main():
             WIN.blit(BG, (0, scroll + BG.get_height() * i))
             i += 1
 
-        scroll -= 35
+        #scroll -= 35
+        scroll -= 60
 
         if abs(scroll) > BG.get_height():
             scroll = 0
