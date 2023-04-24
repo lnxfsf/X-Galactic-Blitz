@@ -198,6 +198,9 @@ def main():
 
     # --------------
 
+    scrolling = 1 # dokle god je ovo aktivno, radice scroll, kada je neaktivno, onda scroll stane, to na end game
+
+
     def redraw_window(WIN, BG, scroll, tiles):
 
         # DRAWING THE BACKGROUND (static)
@@ -255,7 +258,10 @@ def main():
 
         #na osnovu clock, jer clock, ce praviti pauze, da ne bi zbog infinite while loop, PC uzimao resurse previse, tj. da ne bi redraw previse često
         clock.tick(FPS)
-        scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
+
+        #just like, just stop, sledeci ko bude pravio game over interaktivnije, treba da zaustavi scrolling, na bolji nacin ? il tako nesto
+        if scrolling == 1:
+            scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
 
         
         """
@@ -286,6 +292,7 @@ def main():
         # provera, da li imamo dovoljno zivota, da nastavimo igrati. 
         if lives <= 0:
             lost = True  
+            scrolling = 0
             lost_count += 1
         if lost:
             if lost_count > FPS*3:
