@@ -184,6 +184,63 @@ def background_music():
     mixer.music.set_volume(0.7)      # Setting the volume
     mixer.music.play()               # Start playing the song
 
+
+
+
+
+# --------------------
+
+
+# Map the key codes to characters
+keymap = {
+    pygame.K_a: 'a',
+    pygame.K_b: 'b',
+    pygame.K_c: 'c',
+    pygame.K_d: 'd',
+    pygame.K_e: 'e',
+    pygame.K_f: 'f',
+    pygame.K_g: 'g',
+    pygame.K_h: 'h',
+    pygame.K_i: 'i',
+    pygame.K_j: 'j',
+    pygame.K_k: 'k',
+    pygame.K_l: 'l',
+    pygame.K_m: 'm',
+    pygame.K_n: 'n',
+    pygame.K_o: 'o',
+    pygame.K_p: 'p',
+    pygame.K_q: 'q',
+    pygame.K_r: 'r',
+    pygame.K_s: 's',
+    pygame.K_t: 't',
+    pygame.K_u: 'u',
+    pygame.K_v: 'v',
+    pygame.K_w: 'w',
+    pygame.K_x: 'x',
+    pygame.K_y: 'y',
+    pygame.K_z: 'z'
+}
+
+# --------------------
+
+
+
+def uklanjanje_karaktera_s_labela(karakter, enemies):
+
+        # posto ga on passuje, on bukvalno ustvari, direktno dobije vrednost karaktera, potpuno je čist  ! okej, sada, samo treba, da namestis, lista, da ucita.. 
+        slovo = karakter
+
+        print(slovo)
+        #print(slovo)
+        
+        #cak i on prepoznaje. ali samo treba da otkrijem, koja je to tačno, slovo ! da bih mogao da radi kako treba ! 
+       # for enemy in enemies:
+       #     enemy.delete_first_character()
+
+# --------------------
+
+
+
 # glavni dio funkcionalnosti
 def main():
 
@@ -388,9 +445,16 @@ def main():
             # obrisi prvo slovo, sa bilo koji key, samo pocetak, da li radi
             if event.type == pygame.KEYDOWN:
 
-                for enemy in enemies:
-                    #enemy.draw(WIN)
-                    enemy.delete_first_character()
+                #                for enemy in enemies:
+                #                    #enemy.draw(WIN)
+                #                    enemy.delete_first_character()
+
+                # prepoznaje koji key je pressed, engleska abeceda.. 
+                if event.key in keymap:
+                    #pass koji je karakter ubačen.. 
+                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies)
+
+
         # checking for events ********** 
 
 
