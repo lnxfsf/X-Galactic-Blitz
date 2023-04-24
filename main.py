@@ -7,9 +7,6 @@ import math
 #background music
 from pygame import mixer
 
-# scroll background, file... 
-# treba fix, da, bi mogao da draw-uje.... jer nece druge elemente da prikaze..
-from scrollable_background import scroll_bg
 
 
 # pygame init
@@ -124,6 +121,25 @@ class Enemy(Ship):
         self.y += vel   # on se pokrece, tako sto se njegova y pozicija povećava. znaci, sto je veci y pozicija, on ustvari ide ka dole. a sto je manja y pozicija ide ka gore.. to je po pygame pravila.. 
 
 
+    def draw(self, window):
+        super().draw(window)
+
+
+
+
+        white = (255, 255, 255)
+        font = pygame.font.Font(None, 24)
+
+        label = font.render('Enemy ', True, white) 
+        label_rect = label.get_rect(centerx=self.ship_img.get_width() // 2, top=self.ship_img.get_height() + 5) 
+
+
+        x = self.x
+        y = self.y
+
+
+        WIN.blit(label, (x + self.ship_img.get_width() // 2 - label.get_width() // 2, y + self.ship_img.get_height() + 5))
+        WIN.blit(self.ship_img, (x, y))
 
 
 """
@@ -201,6 +217,9 @@ def main():
 
     # --------------
 
+    scrolling = 1 # dokle god je ovo aktivno, radice scroll, kada je neaktivno, onda scroll stane, to na end game
+
+
     def redraw_window(WIN, BG, scroll, tiles):
 
         # DRAWING THE BACKGROUND (static)
@@ -212,7 +231,8 @@ def main():
             WIN.blit(BG, (0, scroll + BG.get_height() * i))
             i += 1
 
-        scroll -= 35
+        #scroll -= 35
+        scroll -= 60
 
         if abs(scroll) > BG.get_height():
             scroll = 0
@@ -258,7 +278,10 @@ def main():
 
         #na osnovu clock, jer clock, ce praviti pauze, da ne bi zbog infinite while loop, PC uzimao resurse previse, tj. da ne bi redraw previse često
         clock.tick(FPS)
-        scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
+
+        #just like, just stop, sledeci ko bude pravio game over interaktivnije, treba da zaustavi scrolling, na bolji nacin ? il tako nesto
+        if scrolling == 1:
+            scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
 
         
         """
@@ -289,6 +312,7 @@ def main():
         # provera, da li imamo dovoljno zivota, da nastavimo igrati. 
         if lives <= 0:
             lost = True  
+            scrolling = 0
             lost_count += 1
         if lost:
             if lost_count > FPS*3:
