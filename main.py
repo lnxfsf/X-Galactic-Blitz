@@ -8,6 +8,9 @@ import math
 from pygame import mixer
 
 
+# random words
+from words import get_rand_word
+
 
 # pygame init
 pygame.init()
@@ -109,9 +112,10 @@ class Enemy(Ship):
     }
 
     # pozicija ship-a, takodje, u ovaj child, se kreira dodatni argument (override od parent, ovaj dodatni, konstruktor)
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, color, word):
         super().__init__(x, y)  # draw position
         
+        self.word = word
         # vidi ovo gore docs
         self.ship_img = self.COLOR_MAP[color]  # postavljanje slike za ovaj ship
         self.mask = pygame.mask.from_surface(self.ship_img)
@@ -130,7 +134,7 @@ class Enemy(Ship):
         white = (255, 255, 255)
         font = pygame.font.Font(None, 24)
 
-        label = font.render('Enemy ', True, white) 
+        label = font.render(self.word, True, white) 
         label_rect = label.get_rect(centerx=self.ship_img.get_width() // 2, top=self.ship_img.get_height() + 5) 
 
 
@@ -331,8 +335,12 @@ def main():
 
             # i sada, ce ova funkcija, da kreira, toliko novih, objekata Enemy-a. u zavisnosti od wave_lenght, koji je, koliko enemy-a ce biti sada u ovaj level..
             for _ in range(wave_length):
+
+                # uzmi novu random word
+                word = get_rand_word()
+
                 # podseti se, konstruktor za Enemy je: def __init__(self, x, y, color):, tako da su ovo samo parametri, da 'x' i 'y' pozicija bude random 
-                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["red", "green", "blue"]))
+                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["red", "green", "blue"]), word)
                 # i to se doda u postojecoj listi... 
                 enemies.append(enemy)
 
