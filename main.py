@@ -261,8 +261,9 @@ keymap = {
 rezervisan_objekat = 0
 
 
-def uklanjanje_karaktera_s_labela(karakter, enemies, rezervisan_objekat):
+def uklanjanje_karaktera_s_labela(karakter, enemies):
         slovo = karakter
+        global rezervisan_objekat
 
         print(slovo)
         
@@ -277,14 +278,15 @@ def uklanjanje_karaktera_s_labela(karakter, enemies, rezervisan_objekat):
                 if rezervisan_objekat:
                     #ako je ovo taj koji je izabran i na kome radis, onda , njega, ces da brises karakter.. 
                     # on ce izlistati kroz ove elemente, i koji objekat bude imao aktivan boolean, to je objekat koji treba da obrises mu karakter , ne brini za ovaj drugi else, zato sto je on ovde izvrsio, znamo da je on assigned
-                    if enemy.aktivan():
+                    # i da ovaj drugi uslov, je da slovo mora biti slovo koje trazimo, inace bilo koje slovo ce prihvatiti, a ne moze.. nego samo to koje se trazi..
+                    if enemy.aktivan() and slovo == enemy.get_first_char():
                             enemy.delete_first_character()
 
                             # i ovde moze da proveri da li je to zadnji, da bi resetovao.. kao i unistio objekat
                             # moze se obrisati, lista direktno odavde, jer referencom ide sve to..
                             # ovo je da proveri, treba biti 1, i onda radi ovaj funkcija.. 
                             if enemy.is_name_empty():
-                                # nema vise ovog objekta
+                                # nema vise ovog objekta, release lock
                                 rezervisan_objekat = 0
                                 
                                 # i sada ga sklanja sa liste ! 
@@ -534,7 +536,7 @@ def main():
                 # prepoznaje koji key je pressed, engleska abeceda.. 
                 if event.key in keymap:
                     #pass koji je karakter ubačen.. 
-                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies, rezervisan_objekat)
+                     uklanjanje_karaktera_s_labela(keymap[event.key], enemies)
 
 
         # checking for events ********** 
