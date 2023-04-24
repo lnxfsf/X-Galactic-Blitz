@@ -28,12 +28,16 @@ BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background
 
 
 # LOAD SPACESHIPS
-YELLOW_SPACESHIP = pygame.image.load(os.path.join("images", "player.png"))
 
-RED_SPACESHIP = pygame.image.load(os.path.join("images", "pixel_ship_red_small.png"))
-BLUE_SPACESHIP = pygame.image.load(os.path.join("images", "pixel_ship_blue_small.png"))
-GREEN_SPACESHIP = pygame.image.load(os.path.join("images", "pixel_ship_green_small.png"))
+PLAYER_SPACESHIP = pygame.image.load(os.path.join("images", "player.png"))
 
+ENEMY1= pygame.image.load(os.path.join("images", "enemy1.png"))
+ENEMY2 = pygame.image.load(os.path.join("images", "enemy2.png"))
+ENEMY3 = pygame.image.load(os.path.join("images", "enemy3.png"))
+ENEMY4= pygame.image.load(os.path.join("images", "enemy4.png"))
+ENEMY5 = pygame.image.load(os.path.join("images", "enemy5.png"))
+ENEMY6 = pygame.image.load(os.path.join("images", "enemy6.png"))
+ENEMY7 = pygame.image.load(os.path.join("images", "enemy7.png"))
 
 
 
@@ -80,7 +84,7 @@ class Player(Ship):
         super().__init__(x, y)
 
         # vidi ovo gore docs
-        self.ship_img = YELLOW_SPACESHIP  # postavljanje slike za ovaj ship
+        self.ship_img = PLAYER_SPACESHIP  # postavljanje slike za ovaj ship
         self.mask = pygame.mask.from_surface(self.ship_img)  
     
     
@@ -104,13 +108,18 @@ A collision mask is a Mask object that is used to detect collisions between two 
 """
 class Enemy(Ship):
 
+
     # random ikonica enemy ship-a.. ovo je dictionary
     COLOR_MAP = {
-        "red": (RED_SPACESHIP),
-        "blue": (BLUE_SPACESHIP),
-        "green": (GREEN_SPACESHIP)
-    }
+        "enemy1": (ENEMY1),
+        "enemy2": (ENEMY2),
+        "enemy3": (ENEMY3),
+        "enemy4": (ENEMY4),
+        "enemy5": (ENEMY5),
+        "enemy6": (ENEMY6),
+        "enemy7": (ENEMY7)
 
+    }
     # pozicija ship-a, takodje, u ovaj child, se kreira dodatni argument (override od parent, ovaj dodatni, konstruktor)
     def __init__(self, x, y, color, word):
         super().__init__(x, y)  # draw position
@@ -478,7 +487,8 @@ def main():
                 word = get_rand_word()
 
                 # podseti se, konstruktor za Enemy je: def __init__(self, x, y, color):, tako da su ovo samo parametri, da 'x' i 'y' pozicija bude random 
-                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["red", "green", "blue"]), word)
+
+                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
                 # i to se doda u postojecoj listi... 
                 enemies.append(enemy)
 
