@@ -146,6 +146,13 @@ class Enemy(Ship):
         WIN.blit(self.ship_img, (x, y))
 
 
+    #zato sto, ce on da redraw, screen svaki put, samo treba da sklonis prvi karakter iz liste
+    def delete_first_character(self):
+            if len(self.word) > 0:
+                self.word = self.word[1:]
+
+
+
 """
 
 funkcija za detekciju collisions
@@ -375,6 +382,12 @@ def main():
                 sys.exit()
                 
 
+            # obrisi prvo slovo, sa bilo koji key, samo pocetak, da li radi
+            if event.type == pygame.KEYDOWN:
+
+                for enemy in enemies:
+                    #enemy.draw(WIN)
+                    enemy.delete_first_character()
         # checking for events ********** 
 
 
