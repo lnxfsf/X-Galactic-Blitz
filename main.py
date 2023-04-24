@@ -18,7 +18,7 @@ pygame.init()
 
 
 #set up window
-WIDTH, HEIGHT = 600, 600
+WIDTH, HEIGHT = 800, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("X-Galactic-Blitz")
 
@@ -26,6 +26,7 @@ pygame.display.set_caption("X-Galactic-Blitz")
 # background
 BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT))
 
+BG_launch = pygame.transform.scale(pygame.image.load(os.path.join("images", "elon_space.png")), (WIDTH, HEIGHT))
 
 # LOAD SPACESHIPS
 
@@ -354,7 +355,7 @@ def main():
     main_font = pygame.font.SysFont("comicsans", size= 50)
 
     # postavljanje player ship u centru (ali necemo ga morati pomerati, zato u main event loop, nemamo, nikakve event listeners za player, jer nam ne trebaju u ovoj igri. cilj, je samo iskucati enemies, da se uniste na taj nacin )
-    player = Player(240, 480)
+    player = Player(340, 480)
 
     # za redrawing.. 
     clock = pygame.time.Clock()
@@ -544,16 +545,25 @@ def main():
 
 
 
+
 def main_menu():
-    title_font = pygame.font.SysFont("comicsans", 75)
+    sub_title_font = pygame.font.SysFont("comicsans", 40)
+    title_font = pygame.font.SysFont("comicsans", 50)
     run = True
 
     while run:
         
-        # title da bude u sredini ekrana, kao launch screen ..
-        title_label = title_font.render("Press any key to begin...", 1, (255,255,255))
-        WIN.blit(BG, (0,0))
-        WIN.blit(title_label, ((WIDTH-title_label.get_width())//2, (HEIGHT-title_label.get_height())//2))
+        title_label = title_font.render("X-Galactic-Blitz: Defending Earth with SpaceX", 1, (255,255,255))
+        sub_title_label = sub_title_font.render("Press any key to begin...", 1, (255,255,255))
+        sub_title_label2 = sub_title_font.render("Enjoy my game - Elon Musk", 1, (255,255,255))
+
+
+        WIN.blit(BG_launch, (0,0))
+
+        WIN.blit(title_label, ((WIDTH-title_label.get_width())//2, (HEIGHT-title_label.get_height())//2 - 50))
+        WIN.blit(sub_title_label, ((WIDTH-sub_title_label.get_width())//2, (HEIGHT-sub_title_label.get_height())//2 + 50))
+        WIN.blit(sub_title_label2, ((WIDTH-sub_title_label2.get_width())//2, (HEIGHT-sub_title_label2.get_height())//2 + 130))
+
         pygame.display.update()
 
         # čeka na event, ako pritisne bilo koje dugme, da pocne igra..
@@ -566,6 +576,8 @@ def main_menu():
                 main()
 
     pygame.quit()
+
+
 
 # prvo prikaze, da bi poceo igru.. (launch screen, kobajagi... )
 main_menu()
