@@ -341,7 +341,7 @@ def main():
     lives = 3
 
     # perfomanse
-    FPS = 60
+    FPS = 240
 
     # brzina enemy-a
     ENEMY_VEL = 3
@@ -386,7 +386,7 @@ def main():
             i += 1
 
         #scroll -= 35
-        scroll -= 60
+        scroll -= 80
 
         if abs(scroll) > BG.get_height():
             scroll = 0
