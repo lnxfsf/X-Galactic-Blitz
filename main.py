@@ -376,6 +376,7 @@ def main():
     scrolling = 1 # dokle god je ovo aktivno, radice scroll, kada je neaktivno, onda scroll stane, to na end game
 
 
+
     def redraw_window(WIN, BG, scroll, tiles):
 
         # DRAWING THE BACKGROUND (static)
@@ -437,6 +438,36 @@ def main():
         #just like, just stop, sledeci ko bude pravio game over interaktivnije, treba da zaustavi scrolling, na bolji nacin ? il tako nesto
         if scrolling == 1:
             scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
+        else:
+            #ovo samo da handluje, lost text
+            # IF WE LOSE
+            if lost:
+                try_again_label = main_font.render("To try again, press any key", 1, (255, 255, 255)) # creates the "Try again" label
+                lost_label = main_font.render("YOU LOST!", 1, (255,255,255)) # da kreira label
+                WIN.blit(lost_label, ((WIDTH-lost_label.get_width())//2, (HEIGHT-lost_label.get_height())//2)) # i da ga prikaze na ekranu
+                WIN.blit(try_again_label, ((WIDTH-try_again_label.get_width())//2, (HEIGHT-lost_label.get_height())//2 + 50))
+
+                # UPDATING THE DISPLAY
+                pygame.display.update()
+
+
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    # obrisi prvo slovo, sa bilo koji key, samo pocetak, da li radi
+                    elif event.type == pygame.KEYDOWN:
+                        main()
+
+
+
+
+
+
+
+
+
+
 
         
         """
@@ -517,10 +548,6 @@ def main():
 
         # checking for events ********** 
         for event in pygame.event.get():
-
-
-
-
 
             # quit if X button pressed (in window)
             if event.type == QUIT:
