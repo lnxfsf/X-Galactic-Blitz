@@ -213,7 +213,7 @@ def collide(obj1, obj2):
 def background_music():
     # background music
     mixer.init()                     # Starting the mixer
-    mixer.music.load(os.path.join("music", "Sadder_Days_Omelas_Snippet_.ogg"))     # Loading the song 
+    mixer.music.load(os.path.join("music", "Elon-Musk-dont-doubt-your-vibe.ogg"))     # Loading the song 
     mixer.music.set_volume(0.7)      # Setting the volume
     mixer.music.play()               # Start playing the song
 
@@ -331,7 +331,7 @@ def main():
 
     # background music 
     #               UNCOMMENT THIS, WHEN YOU START WORKING ON IT
-    # background_music()
+    background_music()
 
     # game states
     run = True
