@@ -218,6 +218,8 @@ def background_music():
     mixer.music.play()               # Start playing the song
 
 
+def stop_music():
+    mixer.music.stop()
 
 
 
@@ -341,7 +343,7 @@ def main():
     lives = 3
 
     # perfomanse
-    FPS = 240
+    FPS = 60
 
     # brzina enemy-a
     ENEMY_VEL = 3
@@ -385,11 +387,10 @@ def main():
             WIN.blit(BG, (0, scroll + BG.get_height() * i))
             i += 1
 
-        #scroll -= 35
-        scroll -= 80
+        scroll += 35
 
-        if abs(scroll) > BG.get_height():
-            scroll = 0
+        if scroll > 0:
+            scroll = -BG.get_height() * (tiles - 1)
         
         # --------------
 
@@ -466,6 +467,7 @@ def main():
         # provera, da li imamo dovoljno zivota, da nastavimo igrati. 
         if lives <= 0:
             lost = True  
+            stop_music()
             scrolling = 0
             lost_count += 1
         if lost:
