@@ -24,9 +24,9 @@ pygame.display.set_caption("X-Galactic-Blitz")
 
 
 # background
-BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT)).convert()
 
-BG_launch = pygame.transform.scale(pygame.image.load(os.path.join("images", "elon_space.png")), (WIDTH, HEIGHT))
+BG_launch = pygame.transform.scale(pygame.image.load(os.path.join("images", "elon_space.png")), (WIDTH, HEIGHT)).convert()
 
 # LOAD SPACESHIPS
 
@@ -542,8 +542,8 @@ def main():
         # checking for events ********** 
 
 
-        # redraw (update) screen
-        pygame.display.update()
+        # redraw (update) screen. samo funkcija za redrawing je dovoljna jednom da se zove
+        #pygame.display.update()
 
 
 
