@@ -24,9 +24,9 @@ pygame.display.set_caption("X-Galactic-Blitz")
 
 
 # background
-BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("images", "background-black.png")), (WIDTH, HEIGHT)).convert()
 
-BG_launch = pygame.transform.scale(pygame.image.load(os.path.join("images", "elon_space.png")), (WIDTH, HEIGHT))
+BG_launch = pygame.transform.scale(pygame.image.load(os.path.join("images", "elon_space.png")), (WIDTH, HEIGHT)).convert()
 
 # LOAD SPACESHIPS
 
@@ -218,6 +218,8 @@ def background_music():
     mixer.music.play()               # Start playing the song
 
 
+def stop_music():
+    mixer.music.stop()
 
 
 
@@ -341,7 +343,7 @@ def main():
     lives = 3
 
     # perfomanse
-    FPS = 240
+    FPS = 60
 
     # brzina enemy-a
     ENEMY_VEL = 3
@@ -374,6 +376,7 @@ def main():
     scrolling = 1 # dokle god je ovo aktivno, radice scroll, kada je neaktivno, onda scroll stane, to na end game
 
 
+
     def redraw_window(WIN, BG, scroll, tiles):
 
         # DRAWING THE BACKGROUND (static)
@@ -385,11 +388,10 @@ def main():
             WIN.blit(BG, (0, scroll + BG.get_height() * i))
             i += 1
 
-        #scroll -= 35
-        scroll -= 80
+        scroll += 35
 
-        if abs(scroll) > BG.get_height():
-            scroll = 0
+        if scroll > 0:
+            scroll = -BG.get_height() * (tiles - 1)
         
         # --------------
 
@@ -436,6 +438,36 @@ def main():
         #just like, just stop, sledeci ko bude pravio game over interaktivnije, treba da zaustavi scrolling, na bolji nacin ? il tako nesto
         if scrolling == 1:
             scroll = redraw_window(WIN, BG, scroll, tiles) # UPDATING DISPLAY |  ovo return-uje scroll varijablu za scrollable background
+        else:
+            #ovo samo da handluje, lost text
+            # IF WE LOSE
+            if lost:
+                try_again_label = main_font.render("To try again, press any key", 1, (255, 255, 255)) # creates the "Try again" label
+                lost_label = main_font.render("YOU LOST!", 1, (255,255,255)) # da kreira label
+                WIN.blit(lost_label, ((WIDTH-lost_label.get_width())//2, (HEIGHT-lost_label.get_height())//2)) # i da ga prikaze na ekranu
+                WIN.blit(try_again_label, ((WIDTH-try_again_label.get_width())//2, (HEIGHT-lost_label.get_height())//2 + 50))
+
+                # UPDATING THE DISPLAY
+                pygame.display.update()
+
+
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    # obrisi prvo slovo, sa bilo koji key, samo pocetak, da li radi
+                    elif event.type == pygame.KEYDOWN:
+                        main()
+
+
+
+
+
+
+
+
+
+
 
         
         """
@@ -466,6 +498,7 @@ def main():
         # provera, da li imamo dovoljno zivota, da nastavimo igrati. 
         if lives <= 0:
             lost = True  
+            stop_music()
             scrolling = 0
             lost_count += 1
         if lost:
@@ -516,10 +549,6 @@ def main():
         # checking for events ********** 
         for event in pygame.event.get():
 
-
-
-
-
             # quit if X button pressed (in window)
             if event.type == QUIT:
                 pygame.quit()
@@ -542,8 +571,8 @@ def main():
         # checking for events ********** 
 
 
-        # redraw (update) screen
-        pygame.display.update()
+        # redraw (update) screen. samo funkcija za redrawing je dovoljna jednom da se zove
+        #pygame.display.update()
 
 
 
