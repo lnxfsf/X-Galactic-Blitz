@@ -270,6 +270,16 @@ rezervisan_objekat = 0
 
 
 def uklanjanje_karaktera_s_labela(karakter, enemies):
+        """
+            funkcija da skloni karakter sa label-a
+
+            input parametara je: keymap[event.key], enemies
+
+                keymap[event.key] - vrednost iz dictionary za taj key - dobija samo value ! 
+                enemies - enemies lista, (koju on menja direktno.. jer je po referenci.. )
+
+        """
+
         slovo = karakter
         global rezervisan_objekat
 
