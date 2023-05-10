@@ -45,8 +45,12 @@ ENEMY7 = pygame.image.load(os.path.join("images", "enemy7.png"))
 
 
  
-# Ship Parent class to inherit player and enemy ship class
 class Ship:
+    """
+        Ship Parent class to inherit player and enemy ship class
+
+    """
+
     # pozicija ship-a
     def __init__(self, x, y):
         self.x = x
@@ -68,23 +72,21 @@ class Ship:
 
 
 
-"""
-
-Player Ship class which inherits from Ship class
-
-
-- The line of code self.mask = pygame.mask.from_surface(self.ship_img) creates a collision mask for the enemy ship based on its image.
-
-A collision mask is a Mask object that is used to detect collisions between two objects in a game. The from_surface method of the pygame.mask module creates a Mask object from a given image Surface.
-
-"""
 class Player(Ship):
+    """
+    Player Ship class which inherits from Ship class
+
+
+    1. The line of code self.mask = pygame.mask.from_surface(self.ship_img) creates a collision mask for the enemy ship based on its image.
+    A collision mask is a Mask object that is used to detect collisions between two objects in a game. The from_surface method of the pygame.mask module creates a Mask object from a given image Surface.
+
+    """
 
     # pozicija ship-a
     def __init__(self, x, y):
         super().__init__(x, y)
 
-        # vidi ovo gore docs
+        # 1. u docs
         self.ship_img = PLAYER_SPACESHIP  # postavljanje slike za ovaj ship
         self.mask = pygame.mask.from_surface(self.ship_img)  
     
@@ -97,17 +99,16 @@ class Player(Ship):
 
 
 
-"""
-
-Enemy ship class which inherits from ship class
-
-
-- The line of code self.mask = pygame.mask.from_surface(self.ship_img) creates a collision mask for the enemy ship based on its image.
-
-A collision mask is a Mask object that is used to detect collisions between two objects in a game. The from_surface method of the pygame.mask module creates a Mask object from a given image Surface.
-
-"""
 class Enemy(Ship):
+    """
+
+    Enemy ship class which inherits from ship class
+
+
+    1. The line of code self.mask = pygame.mask.from_surface(self.ship_img) creates a collision mask for the enemy ship based on its image.
+    A collision mask is a Mask object that is used to detect collisions between two objects in a game. The from_surface method of the pygame.mask module creates a Mask object from a given image Surface.
+
+    """
 
 
     # random ikonica enemy ship-a.. ovo je dictionary
@@ -189,28 +190,28 @@ class Enemy(Ship):
         self.white = False
 
 
-"""
-
-funkcija za detekciju collisions
-
-znaci, posto su enemy i player objekti, mi pass-ujemo: collide(enemy, player), sto znaci, da je prvi objekat enemy ship, drugi objekat player ship (ti naravno, gubis lives, ako enemy predje liniju ispod ekrana). 
-
-
-- Calculate the offset between the positions of the two objects in the x and y directions. The offset is the difference between the x and y coordinates of obj2 and obj1, respectively.
-
-- Call the overlap method of the collision mask of obj1 with the collision mask of obj2 as its argument. The overlap method returns a pygame.Rect object representing the overlapping area of the two masks, or None if the masks don't overlap.
-
-
-- If the return value is not None, it means that the two objects have collided, so the function returns True. Otherwise, it returns False.
-
-"""
 def collide(obj1, obj2):
+    """
+
+    Funkcija za detekciju collisions
+
+    - Posto su enemy i player objekti, mi prosleđujemo: `collide(enemy, player)`, 
+    sto znaci, da je prvi objekat enemy ship, drugi objekat player ship 
+
+    """
+
     offset_x = obj2.x - obj1.x   
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
 
 def background_music():
+    """
+        load and start background music
+
+
+    """
+
     # background music
     mixer.init()                     # Starting the mixer
     mixer.music.load(os.path.join("music", "Elon-Musk-dont-doubt-your-vibe.ogg"))     # Loading the song 
@@ -219,6 +220,11 @@ def background_music():
 
 
 def stop_music():
+    """
+        stop background music
+
+    """
+
     mixer.music.stop()
 
 
@@ -326,13 +332,17 @@ def uklanjanje_karaktera_s_labela(karakter, enemies):
 
 
 
-# glavni dio funkcionalnosti
 def main():
+    """
+        glavni dio funkcionalnosti, koji pokreće aplikaciju i sve njene funkcije (main loop... )
 
+
+
+
+    """
 
 
     # background music 
-    #               UNCOMMENT THIS, WHEN YOU START WORKING ON IT
     background_music()
 
     # game states
@@ -369,6 +379,7 @@ def main():
 
     # za scroll, varijabla
     scroll = 0
+
     tiles = math.ceil(HEIGHT / BG.get_height()) + 1
 
     # --------------
@@ -387,6 +398,9 @@ def main():
         while i < tiles:
             WIN.blit(BG, (0, scroll + BG.get_height() * i))
             i += 1
+
+
+
 
         scroll += 35
 
@@ -578,12 +592,19 @@ def main():
 
 
 def main_menu():
+    """
+        Prva funkcija koja se pokreće, spawnuje main() (main loop programa), restartuje main loop kada se završi igra
+
+
+    """
+
     sub_title_font = pygame.font.SysFont("comicsans", 40)
     title_font = pygame.font.SysFont("comicsans", 50)
     run = True
 
     while run:
         
+        # set title
         title_label = title_font.render("X-Galactic-Blitz: Defending Earth with SpaceX", 1, (255,255,255))
         sub_title_label = sub_title_font.render("Press any key to begin...", 1, (255,255,255))
         sub_title_label2 = sub_title_font.render("Enjoy my game - Elon Musk", 1, (255,255,255))
@@ -610,5 +631,5 @@ def main_menu():
 
 
 
-# prvo prikaze, da bi poceo igru.. (launch screen, kobajagi... )
+# prvo prikaze, da bi poceo igru.. (kvazi launch screen)
 main_menu()
