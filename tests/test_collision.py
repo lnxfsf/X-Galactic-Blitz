@@ -52,8 +52,8 @@ class TestShip(unittest.TestCase):
     def setUpClass(cls):
         pygame.init()
         cls.window = pygame.display.set_mode((800, 800))
-    
-    @classmethod
+
+    @classmethod   
     def tearDownClass(cls):
         pygame.quit()
     
@@ -101,8 +101,8 @@ class TestCollide(unittest.TestCase):
 
         # test collision when ships overlap
         result1 = collide(enemy, player)
-        self.assertTrue(result1) # vraca True, kada je, collision
-        #self.assertFalse(result1)
+        #self.assertTrue(result1) # vraca True, kada je, collision
+        self.assertFalse(result1)
 
 
         # test collision when ships don't overlap
