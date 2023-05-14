@@ -1,7 +1,9 @@
 import unittest
 import pygame, os
 import random
+import sys
 
+sys.path.append('..')
 # random words
 from words import get_rand_word
 
@@ -14,13 +16,14 @@ level = 0
 
 WIDTH, HEIGHT = 800, 600
 
-ENEMY1= pygame.image.load(os.path.join("images", "enemy1.png"))
-ENEMY2 = pygame.image.load(os.path.join("images", "enemy2.png"))
-ENEMY3 = pygame.image.load(os.path.join("images", "enemy3.png"))
-ENEMY4= pygame.image.load(os.path.join("images", "enemy4.png"))
-ENEMY5 = pygame.image.load(os.path.join("images", "enemy5.png"))
-ENEMY6 = pygame.image.load(os.path.join("images", "enemy6.png"))
-ENEMY7 = pygame.image.load(os.path.join("images", "enemy7.png"))
+
+ENEMY1= pygame.image.load(os.path.join(".." ,"images", "enemy1.png"))
+ENEMY2 = pygame.image.load(os.path.join("..","images", "enemy2.png"))
+ENEMY3 = pygame.image.load(os.path.join("..","images", "enemy3.png"))
+ENEMY4= pygame.image.load(os.path.join("..","images", "enemy4.png"))
+ENEMY5 = pygame.image.load(os.path.join("..","images", "enemy5.png"))
+ENEMY6 = pygame.image.load(os.path.join("..","images", "enemy6.png"))
+ENEMY7 = pygame.image.load(os.path.join("..","images", "enemy7.png"))
 
 class Ship:
     """

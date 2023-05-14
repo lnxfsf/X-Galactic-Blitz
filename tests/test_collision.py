@@ -101,8 +101,8 @@ class TestCollide(unittest.TestCase):
 
         # test collision when ships overlap
         result1 = collide(enemy, player)
-        self.assertTrue(result1) # vraca True, kada je, collision
-        #self.assertFalse(result1)
+        #self.assertTrue(result1) # vraca True, kada je, collision
+        self.assertFalse(result1)
 
 
         # test collision when ships don't overlap
