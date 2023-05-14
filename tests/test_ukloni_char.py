@@ -1,21 +1,14 @@
 import unittest
 import pygame, os
 import random
-import sys
-
-sys.path.append('..')
-# random words
-from words import get_rand_word
 
 
-# ovaj test, proverava, da li se class Enemy ship dobro draw-uje na ekran...
-# python -m unittest test_enemy.py
-
+# ovaj test proverava, da li brisanje prvog karaktera radi kako treba. znači, da li on označava taj objekat i brise prvi karakter sa tog objekta 
+# python -m unittest test_ukloni.py 
 
 level = 0
 
 WIDTH, HEIGHT = 800, 600
-
 
 ENEMY1= pygame.image.load(os.path.join(".." ,"images", "enemy1.png"))
 ENEMY2 = pygame.image.load(os.path.join("..","images", "enemy2.png"))
@@ -89,6 +82,13 @@ class Enemy(Ship):
         self.ship_img = self.COLOR_MAP[color]  # postavljanje slike za ovaj ship
         self.mask = pygame.mask.from_surface(self.ship_img)
 
+
+    def get_word(self):
+        return self.word
+
+    def set_active(self):
+        self.active = True
+
     # To move down the enemy ship, ovo je definisano samo u ovaj child class.. 
     def move(self, vel): 
         self.y += vel   # on se pokrece, tako sto se njegova y pozicija povećava. znaci, sto je veci y pozicija, on ustvari ide ka dole. a sto je manja y pozicija ide ka gore.. to je po pygame pravila.. 
@@ -143,63 +143,84 @@ class Enemy(Ship):
 
 
 
+# na pocetku, nijedan objekat nije rezervisan. tj. nije aktivan nijedan objekat. i on trazi koji bi mogao da rezervise, kada nadje, koji odgovara.. , kada nadje, koji odgovara.. 
+rezervisan_objekat = 0
 
 
-class TestShip(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        pygame.init()
-        cls.window = pygame.display.set_mode((800, 800))
+def uklanjanje_karaktera_s_labela(karakter, enemies):
+        """
+            funkcija da skloni karakter sa label-a
 
-    @classmethod
-    def tearDownClass(cls):
-        pygame.quit()
-    
-    def test_init(self):
+            input parametara je: keymap[event.key], enemies
 
-        # uzmi novu random word
-        word = get_rand_word()
+                keymap[event.key] - vrednost iz dictionary za taj key - dobija samo value ! 
+                enemies - enemies lista, (koju on menja direktno.. jer je po referenci.. )
 
-        ship = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
-        self.assertIsNotNone(ship.ship_img)
+        """
 
-    def test_draw(self):
+        slovo = karakter
+        global rezervisan_objekat
 
-        # uzmi novu random word
-        word = get_rand_word()
+        print(slovo)
+        
 
-        ship = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
-        # set the ship image for testing purposes
-        ship.ship_img = pygame.Surface((50, 50))
-        ship.ship_img.fill((255, 255, 255))
-        # call the draw method
-        ship.draw(self.window)
-        # check if the ship was drawn correctly
-        pixels = pygame.PixelArray(self.window)
-        self.assertEqual(pixels[100][200], 0)
-        pixels.close()
+        #vidi u sve enemies ! 
+        for enemy in enemies:
+                if rezervisan_objekat:
+                    if enemy.aktivan() and slovo == enemy.get_first_char():
+                            enemy.delete_first_character()
 
-    def test_get_width(self):
+                            if enemy.is_name_empty():
+                                rezervisan_objekat = 0
+                                enemies.remove(enemy)
 
-        # uzmi novu random word
-        word = get_rand_word()
+                else:
+                    if slovo == enemy.get_first_char():
+                            enemy.delete_first_character()
 
-        ship = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
-        # set the ship image for testing purposes
-        ship.ship_img = pygame.Surface((50, 50))
-        width = ship.get_width()
-        self.assertEqual(width, 50)
 
-    def test_get_height(self):
+                            if enemy.is_name_empty():
+                                rezervisan_objekat = 0
+                                enemies.remove(enemy)
 
-        # uzmi novu random word
-        word = get_rand_word()
+                            else:
+                                enemy.reserve()
+                                rezervisan_objekat = 1
 
-        ship = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
-        # set the ship image for testing purposes
-        ship.ship_img = pygame.Surface((50, 70))
-        height = ship.get_height()
-        self.assertEqual(height, 70)
+
+
+
+
+class TestDeletion(unittest.TestCase):
+
+    def test_uklanjanje_karaktera_s_labela(self):
+
+        words = ['apple', 'banana', 'cherry', 'grape' ]
+        enemies = []
+
+        # kreiraj objekte
+        for word in words:
+            # podseti se, konstruktor za Enemy je: def __init__(self, x, y, color):, tako da su ovo samo parametri, da 'x' i 'y' pozicija bude random 
+            enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500 *(1+level//4), -100), random.choice(["enemy1", "enemy2", "enemy3", "enemy4", "enemy5", "enemy6", "enemy7"]), word)
+            # i to se doda u postojecoj listi... 
+            enemies.append(enemy)
+
+
+        # prvi parametar predstavlja slovo 'a', da obrise slovo a, drugi listu enemies
+        # ako obrises ovo, biće Failing test
+        uklanjanje_karaktera_s_labela("a", enemies)
+
+        assert rezervisan_objekat == 1
+
+        # u taj označen objekat, da li je on obrisao ? taj prvi karakter ?
+        for enemy in enemies:
+            if enemy.aktivan():
+                assert enemy.get_word() == "pple"
+                assert enemy.aktivan() == True
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

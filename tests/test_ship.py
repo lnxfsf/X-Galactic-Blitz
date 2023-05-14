@@ -36,7 +36,7 @@ class TestShip(unittest.TestCase):
     def setUpClass(cls):
         pygame.init()
         cls.window = pygame.display.set_mode((800, 800))
-    
+
     @classmethod
     def tearDownClass(cls):
         pygame.quit()

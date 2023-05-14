@@ -7,7 +7,7 @@ import pygame, os
 # ovaj test, proverava, da li se class Player ship dobro draw-uje na ekran...
 # python -m unittest test_player.py
 
-PLAYER_SPACESHIP = pygame.image.load(os.path.join("images", "player.png"))
+PLAYER_SPACESHIP = pygame.image.load(os.path.join("..","images", "player.png"))
 
 class Ship:
     """
@@ -66,7 +66,7 @@ class TestShip(unittest.TestCase):
     def setUpClass(cls):
         pygame.init()
         cls.window = pygame.display.set_mode((800, 800))
-    
+
     @classmethod
     def tearDownClass(cls):
         pygame.quit()
