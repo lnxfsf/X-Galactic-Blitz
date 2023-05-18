@@ -16,7 +16,6 @@ from words import get_rand_word
 pygame.init()
 
 
-
 #set up window
 WIDTH, HEIGHT = 800, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
