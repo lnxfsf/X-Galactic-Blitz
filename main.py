@@ -15,7 +15,7 @@ from words import get_rand_word
 # pygame init
 pygame.init()
 
-
+jhljkl
 
 #set up window
 WIDTH, HEIGHT = 800, 600
