@@ -8,5 +8,5 @@ Sve je u [wiki](https://github.com/Linuxiness/X-Galactic-Blitz/wiki)
 ![3](https://github.com/Linuxiness/X-Galactic-Blitz/assets/99252096/3ae6c46a-4377-4064-a582-b00a40e90d53)
 ![4](https://github.com/Linuxiness/X-Galactic-Blitz/assets/99252096/fb269dcd-873e-4ca1-ba66-457ca2529dc3)
 
-[Dokumentacija i sve ostalo](https://github.com/Linuxiness/X-Galactic-Blitz/files/11905594/x-galactic-blitz.zip)
+
 
