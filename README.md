@@ -1,5 +1,9 @@
 [![Python application](https://github.com/Linuxiness/X-Galactic-Blitz/actions/workflows/python-app.yml/badge.svg)](https://github.com/Linuxiness/X-Galactic-Blitz/actions/workflows/python-app.yml)
 
+PyGame project similar to space shooter. 
+But to destroy enemies, you need to type out words below enemies. 
+
+
 Sve je u [wiki](https://github.com/Linuxiness/X-Galactic-Blitz/wiki)
 
 
